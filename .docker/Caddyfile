@@ -1,0 +1,20 @@
+{
+    frankenphp
+    order php_server before file_server
+}
+
+:80 {
+    root * /app/public
+
+    encode zstd gzip
+
+    @static {
+        file
+        path *.css *.js *.ico *.gif *.jpg *.jpeg *.png *.svg *.woff *.woff2
+    }
+    handle @static {
+        file_server
+    }
+
+    php_server
+}

@@ -1,0 +1,73 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: film-app
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./storage/app:/app/storage/app
+      - ./storage/logs:/app/storage/logs
+    environment:
+      - APP_ENV=${APP_ENV:-local}
+      - APP_DEBUG=${APP_DEBUG:-true}
+      - DB_CONNECTION=pgsql
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=${DB_DATABASE:-film_db}
+      - DB_USERNAME=${DB_USERNAME:-film_user}
+      - DB_PASSWORD=${DB_PASSWORD:-secret}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - CACHE_STORE=redis
+      - SESSION_DRIVER=redis
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - film-network
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: film-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: ${DB_DATABASE:-film_db}
+      POSTGRES_USER: ${DB_USERNAME:-film_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${DB_USERNAME:-film_user} -d ${DB_DATABASE:-film_db}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - film-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: film-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - film-network
+
+volumes:
+  postgres-data:
+  redis-data:
+
+
+networks:
+  film-network:
+    driver: bridge
