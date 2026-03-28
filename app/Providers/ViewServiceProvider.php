@@ -17,8 +17,17 @@ class ViewServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        // Check if settings table exists before querying
-        if (!Schema::hasTable('settings')) {
+        // Cegah eksekusi ke database jika sedang menjalankan perintah Artisan/Console (misal: saat docker build)
+        if ($this->app->runningInConsole()) {
+            return;
+        }
+
+        // Check if settings table exists before querying. Dibungkus try-catch agar aman.
+        try {
+            if (!Schema::hasTable('settings')) {
+                return;
+            }
+        } catch (\Exception $e) {
             return;
         }
 
