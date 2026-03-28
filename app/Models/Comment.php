@@ -14,6 +14,7 @@ class Comment extends Model
 
     protected $fillable = [
         'film_id',
+        'series_id',
         'user_id',
         'author_name',
         'author_email',
@@ -32,6 +33,14 @@ class Comment extends Model
     public function film(): BelongsTo
     {
         return $this->belongsTo(Film::class);
+    }
+
+    /**
+     * Get the series that the comment belongs to.
+     */
+    public function series(): BelongsTo
+    {
+        return $this->belongsTo(Series::class);
     }
 
     /**
@@ -88,5 +97,13 @@ class Comment extends Model
     public function scopeRoot($query)
     {
         return $query->whereNull('parent_id');
+    }
+
+    /**
+     * Check if the comment author is an admin.
+     */
+    public function isAdmin(): bool
+    {
+        return $this->user && $this->user->hasAnyRole(['super_admin', 'admin']);
     }
 }

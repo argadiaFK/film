@@ -14,11 +14,27 @@ class Setting extends Model
     ];
 
     /**
+     * Clear frontend cache when any setting is saved
+     */
+    protected static function booted(): void
+    {
+        static::saved(function () {
+            Cache::forget('site_settings_frontend');
+            static::clearCache();
+        });
+
+        static::deleted(function () {
+            Cache::forget('site_settings_frontend');
+            static::clearCache();
+        });
+    }
+
+    /**
      * Get a setting value by key.
      */
     public static function get(string $key, mixed $default = null): mixed
     {
-        $setting = Cache::rememberForever("setting.{$key}", function () use ($key) {
+        $setting = Cache::remember("setting.{$key}", 300, function () use ($key) {
             return static::where('key', $key)->first();
         });
 
@@ -51,6 +67,7 @@ class Setting extends Model
         );
 
         Cache::forget("setting.{$key}");
+        Cache::forget('site_settings_frontend');
     }
 
     /**
@@ -62,5 +79,6 @@ class Setting extends Model
         foreach ($settings as $setting) {
             Cache::forget("setting.{$setting->key}");
         }
+        Cache::forget('site_settings_frontend');
     }
 }

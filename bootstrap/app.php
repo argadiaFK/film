@@ -13,6 +13,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         // Rate limiting for login attempts
         $middleware->throttleApi('60,1'); // 60 requests per minute for API
+        
+        // Trust all proxies for accurate IP/HTTPS detection behind Cloudflare or Nginx Proxy Manager (common on CasaOS)
+        $middleware->trustProxies(at: '*');
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

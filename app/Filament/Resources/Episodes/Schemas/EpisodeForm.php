@@ -59,6 +59,7 @@ class EpisodeForm
                     ->schema([
                         FileUpload::make('thumbnail')
                             ->image()
+                            ->disk('public')
                             ->directory('episodes/thumbnails')
                             ->helperText('Thumbnail episode'),
                         Textarea::make('synopsis')

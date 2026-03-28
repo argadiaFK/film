@@ -8,9 +8,17 @@
 
     encode zstd gzip
 
+    # Handle storage symlink
+    @storage {
+        path /storage/*
+    }
+    handle @storage {
+        file_server
+    }
+
     @static {
         file
-        path *.css *.js *.ico *.gif *.jpg *.jpeg *.png *.svg *.woff *.woff2
+        path *.css *.js *.ico *.gif *.jpg *.jpeg *.png *.svg *.woff *.woff2 *.webp
     }
     handle @static {
         file_server

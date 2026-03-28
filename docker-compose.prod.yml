@@ -3,29 +3,29 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: film-app
+    container_name: film-app-prod
     restart: unless-stopped
     ports:
-      - "80:80"
-      - "443:443"
+      # Format: [Port External Anda di CasaOS]:[Port Internal]
+      # Anda bisa mengubah 8080 sesuai keinginan saat meng-import ke CasaOS.
+      - "8080:80"
     volumes:
-      - ./app:/app/app
-      - ./config:/app/config
-      - ./database:/app/database
-      - ./resources:/app/resources
-      - ./routes:/app/routes
-      - ./public:/app/public
-      - ./storage/app:/app/storage/app
-      - ./storage/logs:/app/storage/logs
+      # Data penyimpanan persisten (Poster, Upload Banner, dll)
+      - ./storage-data:/app/storage/app/public
+      # Log file 
+      - ./logs:/app/storage/logs
+    env_file:
+      - .env
     environment:
-      - APP_ENV=${APP_ENV:-local}
-      - APP_DEBUG=${APP_DEBUG:-true}
+      - APP_ENV=production
+      - APP_DEBUG=false
       - DB_CONNECTION=pgsql
       - DB_HOST=postgres
       - DB_PORT=5432
+      # Sesuaikan nilai variabel ini di file .env Anda atau settings CasaOS
       - DB_DATABASE=${DB_DATABASE:-film_db}
       - DB_USERNAME=${DB_USERNAME:-film_user}
-      - DB_PASSWORD=${DB_PASSWORD:-secret}
+      - DB_PASSWORD=${DB_PASSWORD:-SecretStrongPassword123!}
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - CACHE_STORE=redis
@@ -40,19 +40,21 @@ services:
 
   postgres:
     image: postgres:16-alpine
-    container_name: film-postgres
+    container_name: film-postgres-prod
     restart: unless-stopped
-    ports:
-      - "5432:5432"
+    # PORT 5432 TIDAK DIEKSPOS ke luar container untuk keamanan
+    expose:
+      - "5432"
     environment:
       POSTGRES_DB: ${DB_DATABASE:-film_db}
       POSTGRES_USER: ${DB_USERNAME:-film_user}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-SecretStrongPassword123!}
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      # Folder persisten database, bagus untuk CasaOS / DATA tab
+      - ./db-data:/var/lib/postgresql/data
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U ${DB_USERNAME:-film_user} -d ${DB_DATABASE:-film_db}" ]
-      interval: 5s
+      interval: 10s
       timeout: 5s
       retries: 5
     networks:
@@ -60,19 +62,15 @@ services:
 
   redis:
     image: redis:7-alpine
-    container_name: film-redis
+    container_name: film-redis-prod
     restart: unless-stopped
-    ports:
-      - "6379:6379"
+    # PORT 6379 TIDAK DIEKSPOS ke luar container untuk keamanan
+    expose:
+      - "6379"
     volumes:
-      - redis-data:/data
+      - ./redis-data:/data
     networks:
       - film-network
-
-volumes:
-  postgres-data:
-  redis-data:
-
 
 networks:
   film-network:

@@ -148,7 +148,7 @@ class Film extends Model
         if ($this->year) {
             $title .= " ({$this->year})";
         }
-        return $title . " - Nonton & Download";
+        return $title . " - Watch & Download";
     }
 
     /**
@@ -156,7 +156,7 @@ class Film extends Model
      */
     public function getAutoSeoDescriptionAttribute(): string
     {
-        $desc = $this->synopsis ? substr($this->synopsis, 0, 150) : "Nonton dan download {$this->title}";
+        $desc = $this->synopsis ? substr($this->synopsis, 0, 150) : "Watch and download {$this->title}";
         if ($this->year) {
             $desc .= " ({$this->year})";
         }
@@ -168,7 +168,7 @@ class Film extends Model
      */
     public function getAutoSeoKeywordsAttribute(): string
     {
-        $keywords = [$this->title, 'nonton', 'download', 'streaming'];
+        $keywords = [$this->title, 'watch', 'download', 'streaming'];
 
         if ($this->relationLoaded('genres') || $this->genres()->exists()) {
             $keywords = array_merge($keywords, $this->genres->pluck('name')->toArray());

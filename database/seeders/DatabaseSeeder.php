@@ -125,14 +125,34 @@ class DatabaseSeeder extends Seeder
 
         // Create default settings
         $defaultSettings = [
+            // General
             ['key' => 'site_name', 'value' => 'Film Boilerplate', 'type' => 'string', 'group' => 'general'],
-            ['key' => 'site_description', 'value' => 'Nonton dan download film gratis', 'type' => 'string', 'group' => 'general'],
+            ['key' => 'site_tagline', 'value' => 'Nonton dan Download Film Gratis', 'type' => 'string', 'group' => 'general'],
+            ['key' => 'site_description', 'value' => 'Tempat streaming dan download film serta series terbaik secara gratis.', 'type' => 'string', 'group' => 'general'],
             ['key' => 'contact_email', 'value' => 'admin@example.com', 'type' => 'string', 'group' => 'general'],
+
+            // Comments
             ['key' => 'enable_comments', 'value' => '1', 'type' => 'boolean', 'group' => 'comments'],
-            ['key' => 'comments_require_approval', 'value' => '1', 'type' => 'boolean', 'group' => 'comments'],
-            ['key' => 'enable_guest_comments', 'value' => '0', 'type' => 'boolean', 'group' => 'comments'],
+            ['key' => 'comments_require_approval', 'value' => '0', 'type' => 'boolean', 'group' => 'comments'],
+            ['key' => 'enable_guest_comments', 'value' => '1', 'type' => 'boolean', 'group' => 'comments'],
+
+            // Footer
             ['key' => 'footer_text', 'value' => '© ' . date('Y') . ' Film Boilerplate. All rights reserved.', 'type' => 'string', 'group' => 'footer'],
-            ['key' => 'google_analytics_id', 'value' => '', 'type' => 'string', 'group' => 'analytics'],
+
+            // Social Media
+            ['key' => 'social_facebook', 'value' => '', 'type' => 'string', 'group' => 'social'],
+            ['key' => 'social_twitter', 'value' => '', 'type' => 'string', 'group' => 'social'],
+            ['key' => 'social_instagram', 'value' => '', 'type' => 'string', 'group' => 'social'],
+            ['key' => 'social_youtube', 'value' => '', 'type' => 'string', 'group' => 'social'],
+
+            // Scripts
+            ['key' => 'header_scripts', 'value' => '', 'type' => 'string', 'group' => 'scripts'],
+            ['key' => 'footer_scripts', 'value' => '', 'type' => 'string', 'group' => 'scripts'],
+            ['key' => 'analytics_code', 'value' => '', 'type' => 'string', 'group' => 'analytics'],
+
+            // Donation
+            ['key' => 'donation_link', 'value' => '', 'type' => 'string', 'group' => 'donation'],
+            ['key' => 'donation_text', 'value' => 'Dukung Kami', 'type' => 'string', 'group' => 'donation'],
         ];
 
         foreach ($defaultSettings as $setting) {

@@ -49,11 +49,13 @@ class SeriesForm
                         FileUpload::make('poster')
                             ->label('Poster (Portrait)')
                             ->image()
+                            ->disk('public')
                             ->directory('series/posters')
                             ->helperText('Ukuran: 300x450px'),
                         FileUpload::make('backdrop')
                             ->label('Backdrop (Landscape)')
                             ->image()
+                            ->disk('public')
                             ->directory('series/backdrops')
                             ->helperText('Untuk slider. Ukuran: 1920x1080px'),
                         TextInput::make('trailer_url')

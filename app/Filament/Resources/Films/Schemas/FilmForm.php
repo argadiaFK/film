@@ -69,6 +69,7 @@ class FilmForm
                                 FileUpload::make('poster')
                                     ->label('Poster (Portrait)')
                                     ->image()
+                                    ->disk('public')
                                     ->directory('films/posters')
                                     ->imageResizeMode('cover')
                                     ->imageCropAspectRatio('2:3')
@@ -76,6 +77,7 @@ class FilmForm
                                 FileUpload::make('backdrop')
                                     ->label('Backdrop (Landscape)')
                                     ->image()
+                                    ->disk('public')
                                     ->directory('films/backdrops')
                                     ->helperText('Untuk slider/hero. Ukuran: 1920x1080px'),
                                 TextInput::make('trailer_url')

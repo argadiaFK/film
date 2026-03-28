@@ -5,6 +5,9 @@ namespace App\Filament\Resources\Settings\Schemas;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Get;
+use Filament\Forms\Components\Grid;
 use Filament\Schemas\Schema;
 
 class SettingForm
@@ -16,7 +19,8 @@ class SettingForm
                 TextInput::make('key')
                     ->required()
                     ->unique(ignoreRecord: true)
-                    ->helperText('Unique key (e.g. site_name, enable_comments)')
+                    ->helperText('Unique key (e.g. site_logo, site_name, enable_comments)')
+                    ->live()
                     ->columnSpan(1),
                 Select::make('type')
                     ->options([
@@ -39,8 +43,18 @@ class SettingForm
                     ->default('general')
                     ->required()
                     ->columnSpan(1),
-                Textarea::make('value')
-                    ->rows(3)
+                Grid::make(1)
+                    ->schema(fn (Get $get) => in_array($get('key'), ['site_logo', 'site_favicon', 'backdrop', 'poster']) ? [
+                        FileUpload::make('value')
+                            ->image()
+                            ->directory('settings')
+                            ->helperText('Upload an image file. Leave empty to use default.')
+                            ->columnSpanFull(),
+                    ] : [
+                        Textarea::make('value')
+                            ->rows(3)
+                            ->columnSpanFull(),
+                    ])
                     ->columnSpanFull(),
             ])
             ->columns(3);

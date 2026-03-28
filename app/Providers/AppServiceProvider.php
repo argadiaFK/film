@@ -15,6 +15,7 @@ use App\Observers\ActivityLogObserver;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Logout;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -32,6 +33,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Force HTTPS in production (to avoid mixed content loading issues when placed behind SSL proxies)
+        if (config('app.env') === 'production') {
+            URL::forceScheme('https');
+        }
+
         // Register activity log observer for all trackable models
         $observer = ActivityLogObserver::class;
 
