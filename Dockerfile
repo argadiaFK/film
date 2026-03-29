@@ -49,7 +49,10 @@ COPY .docker/Caddyfile /etc/caddy/Caddyfile
 COPY . /app
 
 # Install PHP dependencies
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
+# Force dummy environment variables during build to prevent Laravel from attempting
+# to connect to non-existent Redis/Postgres databases during `package:discover`
+RUN DB_CONNECTION=sqlite DB_DATABASE=/tmp/db.sqlite CACHE_STORE=file SESSION_DRIVER=file QUEUE_CONNECTION=sync REDIS_CLIENT=null \
+    composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
 
 # Set permissions
 RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache && \
