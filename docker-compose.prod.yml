@@ -6,9 +6,9 @@ services:
     container_name: film-app-prod
     restart: unless-stopped
     ports:
-      # Format: [Port External Anda di CasaOS]:[Port Internal]
-      # Anda bisa mengubah 8080 sesuai keinginan saat meng-import ke CasaOS.
-      - "8080:80"
+      # Format: [Port Eksternal Anda di CasaOS]:[Port Internal]
+      # Diubah menjadi 8383 karena 8080 sering sibuk. Bebas Anda modifikasi.
+      - "8383:80"
     volumes:
       # Data penyimpanan persisten (Poster, Upload Banner, dll)
       - ./storage-data:/app/storage/app/public
