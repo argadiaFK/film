@@ -39,22 +39,31 @@ class SettingForm
                         'seo' => 'SEO',
                         'analytics' => 'Analytics',
                         'footer' => 'Footer',
+                        'social' => 'Social Media',
+                        'scripts' => 'Scripts',
+                        'donation' => 'Donation',
                     ])
                     ->default('general')
                     ->required()
                     ->columnSpan(1),
                 Grid::make(1)
-                    ->schema(fn (Get $get) => in_array($get('key'), ['site_logo', 'site_favicon', 'backdrop', 'poster']) ? [
-                        FileUpload::make('value')
-                            ->image()
-                            ->directory('settings')
-                            ->helperText('Upload an image file. Leave empty to use default.')
-                            ->columnSpanFull(),
-                    ] : [
-                        Textarea::make('value')
-                            ->rows(3)
-                            ->columnSpanFull(),
-                    ])
+                    ->schema(function (?\App\Models\Setting $record) {
+                        if ($record && in_array($record->key, ['site_logo', 'site_favicon', 'backdrop', 'poster'])) {
+                            return [
+                                FileUpload::make('value')
+                                    ->image()
+                                    ->directory('settings')
+                                    ->helperText('Upload an image file. Leave empty to use default.')
+                                    ->columnSpanFull(),
+                            ];
+                        }
+
+                        return [
+                            Textarea::make('value')
+                                ->rows(3)
+                                ->columnSpanFull(),
+                        ];
+                    })
                     ->columnSpanFull(),
             ])
             ->columns(3);
