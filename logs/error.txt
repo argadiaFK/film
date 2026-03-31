@@ -1,0 +1,20 @@
+[2026-03-31 14:15:58] production.ERROR: Class "Filament\Forms\Components\Grid" not found {"userId":1,"exception":"[object] (Error(code: 0): Class \"Filament\\Forms\\Components\\Grid\" not found at /app/app/Filament/Resources/Settings/Schemas/SettingForm.php:49)
+[stacktrace]
+#0 /app/app/Filament/Resources/Settings/SettingResource.php(44): App\\Filament\\Resources\\Settings\\Schemas\\SettingForm::configure(Object(Filament\\Schemas\\Schema))
+#1 /app/vendor/filament/filament/src/Resources/Pages/EditRecord.php(351): App\\Filament\\Resources\\Settings\\SettingResource::form(Object(Filament\\Schemas\\Schema))
+#2 /app/vendor/filament/schemas/src/Concerns/InteractsWithSchemas.php(273): Filament\\Resources\\Pages\\EditRecord->form(Object(Filament\\Schemas\\Schema))
+#3 /app/vendor/filament/schemas/src/Concerns/InteractsWithSchemas.php(295): Filament\\Pages\\BasePage->cacheSchema('form')
+--
+[2026-03-31 14:16:04] production.ERROR: Class "Filament\Forms\Components\Grid" not found {"userId":1,"exception":"[object] (Error(code: 0): Class \"Filament\\Forms\\Components\\Grid\" not found at /app/app/Filament/Resources/Settings/Schemas/SettingForm.php:49)
+[stacktrace]
+#0 /app/app/Filament/Resources/Settings/SettingResource.php(44): App\\Filament\\Resources\\Settings\\Schemas\\SettingForm::configure(Object(Filament\\Schemas\\Schema))
+#1 /app/vendor/filament/filament/src/Resources/Pages/EditRecord.php(351): App\\Filament\\Resources\\Settings\\SettingResource::form(Object(Filament\\Schemas\\Schema))
+#2 /app/vendor/filament/schemas/src/Concerns/InteractsWithSchemas.php(273): Filament\\Resources\\Pages\\EditRecord->form(Object(Filament\\Schemas\\Schema))
+#3 /app/vendor/filament/schemas/src/Concerns/InteractsWithSchemas.php(295): Filament\\Pages\\BasePage->cacheSchema('form')
+--
+[2026-03-31 14:45:40] production.ERROR: Class "Filament\Forms\Components\Grid" not found {"userId":1,"exception":"[object] (Error(code: 0): Class \"Filament\\Forms\\Components\\Grid\" not found at /app/app/Filament/Resources/Settings/Schemas/SettingForm.php:49)
+[stacktrace]
+#0 /app/app/Filament/Resources/Settings/SettingResource.php(44): App\\Filament\\Resources\\Settings\\Schemas\\SettingForm::configure(Object(Filament\\Schemas\\Schema))
+#1 /app/vendor/filament/filament/src/Resources/Pages/EditRecord.php(351): App\\Filament\\Resources\\Settings\\SettingResource::form(Object(Filament\\Schemas\\Schema))
+#2 /app/vendor/filament/schemas/src/Concerns/InteractsWithSchemas.php(273): Filament\\Resources\\Pages\\EditRecord->form(Object(Filament\\Schemas\\Schema))
+#3 /app/vendor/filament/schemas/src/Concerns/InteractsWithSchemas.php(295): Filament\\Pages\\BasePage->cacheSchema('form')

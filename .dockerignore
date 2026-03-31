@@ -1,0 +1,13 @@
+/vendor
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/storage/app/public/settings/*
+/storage/logs/*.log
+/storage/framework/cache/data/*
+/.env
+/.git
+/.github
+/.vscode
