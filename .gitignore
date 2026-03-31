@@ -26,3 +26,9 @@ Thumbs.db
 **/caddy
 frankenphp
 frankenphp-worker.php
+
+# Docker Volumes Data
+/db-data/
+/redis-data/
+/storage-data/
+/logs/
