@@ -8,11 +8,9 @@
 
     encode zstd gzip
 
-    # Handle storage symlink
-    @storage {
-        path /storage/*
-    }
-    handle @storage {
+    # Handle Laravel storage directory safely
+    handle_path /storage/* {
+        root * /app/storage/app/public
         file_server
     }
 
