@@ -48,6 +48,7 @@ class SeoMetaForm
                         FileUpload::make('og_image')
                             ->label('OG Image')
                             ->image()
+                            ->disk('public')
                             ->directory('seo/og-images'),
                         TextInput::make('canonical_url')
                             ->url()

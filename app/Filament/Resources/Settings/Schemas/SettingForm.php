@@ -52,6 +52,7 @@ class SettingForm
                             return [
                                 FileUpload::make('value')
                                     ->image()
+                                    ->disk('public')
                                     ->directory('settings')
                                     ->helperText('Upload an image file. Leave empty to use default.')
                                     ->columnSpanFull(),
