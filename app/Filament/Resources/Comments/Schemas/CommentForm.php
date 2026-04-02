@@ -18,9 +18,9 @@ class CommentForm
             ->components([
                 Section::make('Comment Details')
                     ->schema([
-                        Placeholder::make('film')
-                            ->label('Film')
-                            ->content(fn($record) => $record->film?->title ?? '-'),
+                        Placeholder::make('target')
+                            ->label('Target')
+                            ->content(fn($record) => $record->film ? ('Film: ' . $record->film->title) : ($record->episode ? ('Episode: ' . $record->episode->full_title) : '-')),
                         Placeholder::make('author')
                             ->label('Author')
                             ->content(fn($record) => $record->author),

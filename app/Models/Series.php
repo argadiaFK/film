@@ -23,6 +23,7 @@ class Series extends Model
         'backdrop',
         'trailer_url',
         'rating',
+        'duration_minutes',
         'total_seasons',
         'total_episodes',
         'status',
@@ -32,6 +33,7 @@ class Series extends Model
     protected $casts = [
         'year' => 'integer',
         'rating' => 'decimal:1',
+        'duration_minutes' => 'integer',
         'total_seasons' => 'integer',
         'total_episodes' => 'integer',
         'is_featured' => 'boolean',

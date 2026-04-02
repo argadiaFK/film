@@ -15,6 +15,7 @@ class Comment extends Model
     protected $fillable = [
         'film_id',
         'series_id',
+        'episode_id',
         'user_id',
         'author_name',
         'author_email',
@@ -41,6 +42,14 @@ class Comment extends Model
     public function series(): BelongsTo
     {
         return $this->belongsTo(Series::class);
+    }
+
+    /**
+     * Get the episode that the comment belongs to.
+     */
+    public function episode(): BelongsTo
+    {
+        return $this->belongsTo(Episode::class);
     }
 
     /**

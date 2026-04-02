@@ -59,6 +59,11 @@ class Episode extends Model
         return $this->hasMany(EpisodeDownloadLink::class);
     }
 
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function scopePublished($query)
     {
         return $query->where('status', 'published');

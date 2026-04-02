@@ -18,11 +18,11 @@ class CommentsTable
     {
         return $table
             ->columns([
-                TextColumn::make('film.title')
-                    ->label('Film')
-                    ->searchable()
-                    ->sortable()
-                    ->limit(30),
+                TextColumn::make('target')
+                    ->label('Target')
+                    ->getStateUsing(fn($record) => $record->film ? ('Film: ' . $record->film->title) : ($record->episode ? ('Episode: ' . $record->episode->full_title) : '-'))
+                    ->wrap()
+                    ->limit(40),
                 TextColumn::make('author')
                     ->label('Author')
                     ->getStateUsing(fn($record) => $record->author)
@@ -54,6 +54,10 @@ class CommentsTable
                     ]),
                 SelectFilter::make('film')
                     ->relationship('film', 'title')
+                    ->searchable()
+                    ->preload(),
+                SelectFilter::make('episode')
+                    ->relationship('episode', 'title')
                     ->searchable()
                     ->preload(),
             ])

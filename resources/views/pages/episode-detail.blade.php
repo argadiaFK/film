@@ -135,5 +135,8 @@
                 @endforeach
             </div>
         </section>
+
+        <!-- Comments Section -->
+        <x-comment-section :comments="$currentEpisode->comments" :episode-id="$currentEpisode->id" />
     </div>
 @endsection

@@ -81,26 +81,28 @@ class CommentController extends Controller
         $validated = $request->validate([
             'film_id' => 'nullable|uuid|exists:films,id',
             'series_id' => 'nullable|uuid|exists:series,id',
+            'episode_id' => 'nullable|uuid|exists:episodes,id',
             'parent_id' => 'nullable|uuid|exists:comments,id',
             'content' => 'required|string|min:3|max:2000',
         ]);
 
-        // At least one of film_id or series_id must be provided (unless replying)
-        if (empty($validated['film_id']) && empty($validated['series_id']) && empty($validated['parent_id'])) {
+        // At least one of film_id, series_id, or episode_id must be provided (unless replying)
+        if (empty($validated['film_id']) && empty($validated['series_id']) && empty($validated['episode_id']) && empty($validated['parent_id'])) {
             return response()->json([
-                'message' => 'Film atau Series harus dipilih'
+                'message' => 'Target (Film, Series, atau Episode) harus dipilih'
             ], 422);
         }
 
-        // If replying, inherit film_id/series_id from parent
         $filmId = $validated['film_id'] ?? null;
         $seriesId = $validated['series_id'] ?? null;
+        $episodeId = $validated['episode_id'] ?? null;
 
         if (!empty($validated['parent_id'])) {
             $parentComment = Comment::find($validated['parent_id']);
             if ($parentComment) {
                 $filmId = $filmId ?: $parentComment->film_id;
                 $seriesId = $seriesId ?: $parentComment->series_id;
+                $episodeId = $episodeId ?: $parentComment->episode_id;
             }
         }
 
@@ -114,6 +116,7 @@ class CommentController extends Controller
         Comment::create([
             'film_id' => $filmId,
             'series_id' => $seriesId,
+            'episode_id' => $episodeId,
             'parent_id' => $validated['parent_id'] ?? null,
             'user_id' => $user?->id,
             'author_name' => $authorName,

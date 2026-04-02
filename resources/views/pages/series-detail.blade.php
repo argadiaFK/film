@@ -78,6 +78,9 @@
                     @if($series->year)
                         <span class="px-3 py-1 bg-dark-700 rounded">{{ $series->year }}</span>
                     @endif
+                    @if($series->duration_minutes)
+                        <span class="px-3 py-1 bg-dark-700 rounded">{{ $series->duration_minutes }} min / ep</span>
+                    @endif
                     <span class="px-3 py-1 bg-dark-700 rounded">{{ $series->episodes->count() }} Episodes</span>
                     @if($series->status)
                         <span class="px-3 py-1 bg-green-600 rounded font-medium">{{ ucfirst($series->status) }}</span>
@@ -99,6 +102,14 @@
                     <h3 class="text-lg font-semibold mb-2">Synopsis</h3>
                     <p class="text-gray-300 leading-relaxed">{{ $series->synopsis }}</p>
                 </div>
+
+                <!-- Countries -->
+                @if($series->countries->count())
+                    <p class="text-sm text-gray-400 mb-4">
+                        <strong class="text-white">Country:</strong>
+                        {{ $series->countries->pluck('name')->join(', ') }}
+                    </p>
+                @endif
             </div>
         </div>
 
@@ -187,8 +198,5 @@
                 </div>
             </section>
         @endif
-
-        <!-- Comments Section -->
-        <x-comment-section :comments="$series->comments" :series-id="$series->id" />
     </div>
 @endsection

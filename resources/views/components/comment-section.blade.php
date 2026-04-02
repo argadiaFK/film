@@ -1,4 +1,4 @@
-@props(['comments', 'filmId' => null, 'seriesId' => null])
+@props(['comments', 'filmId' => null, 'seriesId' => null, 'episodeId' => null])
 
 @php
     $enableComments = \App\Models\Setting::get('enable_comments', true);
@@ -274,6 +274,7 @@
                             body: JSON.stringify({
                                 film_id: '{{ $filmId }}' || null,
                                 series_id: '{{ $seriesId }}' || null,
+                                episode_id: '{{ $episodeId }}' || null,
                                 parent_id: this.replyTo,
                                 author_name: this.name,
                                 author_email: this.email,

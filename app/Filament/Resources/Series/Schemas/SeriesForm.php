@@ -29,6 +29,10 @@ class SeriesForm
                             ->minValue(1900)
                             ->maxValue(2100)
                             ->placeholder(date('Y')),
+                        TextInput::make('duration_minutes')
+                            ->label('Duration per ep (min)')
+                            ->numeric()
+                            ->minValue(1),
                         TextInput::make('total_seasons')
                             ->label('Total Seasons')
                             ->numeric()
