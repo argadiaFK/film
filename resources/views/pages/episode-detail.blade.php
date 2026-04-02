@@ -43,7 +43,7 @@
                 <!-- Player -->
                 @foreach($currentEpisode->streamingSources as $index => $source)
                     <div x-show="activeSource === {{ $index }}" class="aspect-video bg-dark-800 rounded-lg overflow-hidden">
-                        <iframe src="{{ $source->embed_url }}" class="w-full h-full" frameborder="0" allowfullscreen></iframe>
+                        <iframe src="{{ $source->url }}" class="w-full h-full" frameborder="0" allowfullscreen></iframe>
                     </div>
                 @endforeach
             </section>
