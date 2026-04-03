@@ -124,11 +124,15 @@
                             }
                             this.loading = true;
                             try {
-                                const response = await fetch('/api/search?q=' + encodeURIComponent(this.query));
+                                const response = await fetch('/api/search?q=' + encodeURIComponent(this.query), {
+                                    headers: { 'Accept': 'application/json' }
+                                });
+                                if (!response.ok) { this.results = []; this.open = false; this.loading = false; return; }
                                 this.results = await response.json();
                                 this.open = true;
                             } catch (e) {
                                 console.error(e);
+                                this.results = [];
                             }
                             this.loading = false;
                         }
@@ -253,11 +257,15 @@
                          }
                          this.loading = true;
                          try {
-                             const response = await fetch('/api/search?q=' + encodeURIComponent(this.query));
+                             const response = await fetch('/api/search?q=' + encodeURIComponent(this.query), {
+                                 headers: { 'Accept': 'application/json' }
+                             });
+                             if (!response.ok) { this.results = []; this.open = false; this.loading = false; return; }
                              this.results = await response.json();
                              this.open = true;
                          } catch (e) {
                              console.error(e);
+                             this.results = [];
                          }
                          this.loading = false;
                      }

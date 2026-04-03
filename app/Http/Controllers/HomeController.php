@@ -22,6 +22,7 @@ class HomeController extends Controller
         $featuredSeries = Series::where('is_featured', true)
             ->whereIn('status', ['ongoing', 'completed'])
             ->with('genres')
+            ->withCount('episodes')
             ->latest()
             ->take(5)
             ->get();
@@ -45,9 +46,9 @@ class HomeController extends Controller
             ->take(12)
             ->get();
 
-        // Series uses different status values: ongoing, completed
         $latestSeries = Series::whereIn('status', ['ongoing', 'completed'])
             ->with(['genres', 'episodes'])
+            ->withCount('episodes')
             ->latest()
             ->take(12)
             ->get();

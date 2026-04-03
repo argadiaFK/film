@@ -162,6 +162,16 @@
                                     <h4 class="font-medium group-hover:text-primary transition">
                                         Episode {{ $episode->episode_number }}: {{ $episode->title }}
                                     </h4>
+                                    <div class="flex items-center gap-3 mt-1">
+                                        @if($episode->duration_minutes)
+                                            <span class="text-xs text-gray-400 flex items-center gap-1">
+                                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+                                                {{ $episode->duration_minutes }} min
+                                            </span>
+                                        @endif
+                                    </div>
                                     @if($episode->synopsis)
                                         <p class="text-sm text-gray-400 line-clamp-2 mt-1">{{ $episode->synopsis }}</p>
                                     @endif

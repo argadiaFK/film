@@ -40,7 +40,7 @@
                                         <span>{{ $content->duration_minutes }} min</span>
                                     @endif
                                     @if($content->content_type === 'series')
-                                        <span>{{ $content->total_episodes ?? 0 }} Episodes</span>
+                                        <span>{{ $content->episodes_count ?? $content->episodes->count() }} Episodes</span>
                                     @endif
                                     @if($content->rating)
                                         <span class="flex items-center gap-1">
