@@ -58,9 +58,9 @@ class SearchController extends Controller
                     ];
                 });
 
-            $results = $films->merge($series)->take(8);
+            $results = collect($films)->merge(collect($series))->take(8);
 
-            return response()->json($results);
+            return response()->json($results->values());
         } catch (\Exception $e) {
             return response()->json([
                 'error' => true,
